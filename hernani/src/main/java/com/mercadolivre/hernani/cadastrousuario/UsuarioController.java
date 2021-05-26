@@ -1,5 +1,6 @@
 package com.mercadolivre.hernani.cadastrousuario;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class UsuarioController {
 	private UsuarioRepository usuariorepository;
 	
 	@PostMapping(value = "/usuarios")
+	@Transactional
 	public void criaUsuario(@RequestBody @Valid UsuarioForm usuarioform) {
 		Usuario usuario = usuarioform.converte(pe);
 		usuariorepository.save(usuario);

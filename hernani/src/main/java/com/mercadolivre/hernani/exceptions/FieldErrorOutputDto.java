@@ -11,6 +11,10 @@ public class FieldErrorOutputDto {
         this.field = field;
         this.message = message;
     }
+    public FieldErrorOutputDto(String message) {
+       
+        this.message = message;
+    }
 
     public String getField() {
         return field;

@@ -1,6 +1,7 @@
 package com.mercadolivre.hernani.exceptions;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
@@ -64,6 +66,31 @@ public class ValidationErrorHandler {
     	return buildValidationErrors(globalErrors,
     			fieldErrors);
     }
+    
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    @ExceptionHandler(NoSuchElementException.class)
+    public FieldErrorOutputDto handleValidationError(NoSuchElementException exception) {
+    	
+    	return new FieldErrorOutputDto(exception.getMessage());
+    }
+    
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public FieldErrorOutputDto handleValidationError(IllegalArgumentException exception) {
+    	
+    	return new FieldErrorOutputDto(exception.getMessage());
+    }
+    
+    
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler( ResponseStatusException.class)
+    public FieldErrorOutputDto handleValidationError( ResponseStatusException exception) {
+    	
+    	return new FieldErrorOutputDto(exception.getMessage());
+    }
+    
+   
 
 	private ValidationErrorsOutputDto buildValidationErrors(List<ObjectError> globalErrors,
 			List<FieldError> fieldErrors) {
