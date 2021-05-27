@@ -31,11 +31,30 @@ public class Usuario {
 	@Future
 	@CreationTimestamp
 	private LocalDateTime momentoCriacao;
+	
+	@Deprecated
+	public Usuario() {
+		super();
+	}
 
 	public Usuario(@NotBlank @Email String email, @NotBlank String senha) {
 		super();
 		this.email = email;
 		this.senha = senha;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+	
+	
 
 }
