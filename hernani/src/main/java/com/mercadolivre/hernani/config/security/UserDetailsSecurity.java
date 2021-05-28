@@ -73,6 +73,16 @@ public class UserDetailsSecurity implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "UserDetailsSecurity [id=" + id + ", email=" + email + ", senha=" + senha + ", authorities="
+				+ authorities + "]";
+	}
+	
+	
 	
 	/*public boolean hasRole(Perfil perfil) {
 		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));

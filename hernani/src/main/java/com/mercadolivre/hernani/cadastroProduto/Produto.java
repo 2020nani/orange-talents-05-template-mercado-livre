@@ -32,6 +32,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.mercadolivre.hernani.cadastrocategoria.Categoria;
 import com.mercadolivre.hernani.cadastrousuario.Usuario;
+import com.mercadolivre.hernani.config.security.UserDetailsSecurity;
 
 @Entity
 public class Produto {
@@ -67,9 +68,14 @@ public class Produto {
 	@OneToMany(mappedBy = "produto",cascade = CascadeType.PERSIST)
 	private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
 	
+	@OneToMany(mappedBy = "produto",cascade = CascadeType.MERGE)
+	private Set<ImagemProduto> imagens = new HashSet<>();
+	
 	@Future
 	@CreationTimestamp
 	private LocalDateTime momentoCriacao;
+
+	
 
 	@Deprecated
 	public Produto() {
@@ -92,6 +98,18 @@ public class Produto {
 		this.caracteristicas.addAll(novasCaracteristicas);
 		
 		Assert.isTrue(this.caracteristicas.size() >= 3, "Todo produto precisa ter no minimo 3 caracteristicas");
+	}
+	
+	/* metodo que associa as imagens e os links gerados com o produto */
+	public void associaImagens(Set<String> links) {
+		Set<ImagemProduto> imagens = links.stream().map(link -> new ImagemProduto(this, link)).collect(Collectors.toSet());
+		
+		this.imagens.addAll(imagens);
+	}
+	/*metodo que verifica se usuario que faz upload de imagem e dono do produto*/
+	public boolean pertenceAoUsuario(UserDetailsSecurity user) {
+		
+		return this.dono.getEmail().equals(user.getUsername()) && this.dono.getId().equals(user.getId());
 	}
 	
 	@Override
@@ -151,8 +169,9 @@ public class Produto {
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", valor=" + valor + ", quantidade=" + quantidade
 				+ ", descricao=" + descricao + ", categoria=" + categoria + ", dono=" + dono + ", caracteristicas="
-				+ caracteristicas + "]";
+				+ caracteristicas + ", imagens=" + imagens + ", momentoCriacao=" + momentoCriacao + "]";
 	}
 
+	
 	
 }

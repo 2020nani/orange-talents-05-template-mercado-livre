@@ -9,38 +9,38 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.URL;
+
 @Entity
-public class CaracteristicaProduto {
+public class ImagemProduto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank
-	private String nome;
-	
-	@NotBlank
-	private String descricao;
-	
+
 	@ManyToOne
-	private @NotNull @Valid Produto produto;
+	@NotNull 
+	@Valid
+	private Produto produto;
+	
+	@URL
+	@NotBlank
+	private String link;
 	
 	@Deprecated
-	public CaracteristicaProduto() {
+	public ImagemProduto() {
 		super();
 	}
 
-	public CaracteristicaProduto(@NotBlank String nome, @NotBlank String descricao, @NotNull @Valid Produto produto) {
-		super();
-		this.nome = nome;
-		this.descricao = descricao;
+	public ImagemProduto(@NotNull @Valid Produto produto,@URL @NotBlank String link) {
 		this.produto = produto;
+		this.link = link;
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "CaracteristicaProduto [nome=" + nome + ", descricao=" + descricao + "]";
+		return "ImagemProduto [id=" + id + ", link=" + link + "]";
 	}
 
-	
 }
