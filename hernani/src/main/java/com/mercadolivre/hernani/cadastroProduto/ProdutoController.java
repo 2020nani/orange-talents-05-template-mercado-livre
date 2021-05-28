@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.mercadolivre.hernani.adicionaopiniao.AdicionaOpiniaoRepository;
+import com.mercadolivre.hernani.adicionaopiniao.Opiniao;
 import com.mercadolivre.hernani.cadastrocategoria.CategoriaRepository;
 import com.mercadolivre.hernani.cadastrousuario.Usuario;
 import com.mercadolivre.hernani.cadastrousuario.UsuarioRepository;
@@ -31,7 +33,13 @@ public class ProdutoController {
 	private ProdutoRepository produtorepository;
 	
 	@Autowired
+	private ImagemRepository imagemrepository;
+	
+	@Autowired
 	private CategoriaRepository categoriarepository;
+	
+	@Autowired
+	private AdicionaOpiniaoRepository opiniaorepository;
 	
 	@Autowired
 	private UsuarioRepository usuariorepository;
@@ -49,6 +57,20 @@ public class ProdutoController {
 	public List<Produto> listaProduto() {
 		
 		List<Produto> lista = produtorepository.findAll();
+		return lista;
+	}
+	
+	@GetMapping(value = "/imagens")
+	public List<ImagemProduto> listaImagens() {
+		
+		List<ImagemProduto> lista = imagemrepository.findAll();
+		return lista;
+	}
+	
+	@GetMapping(value = "/opiniao")
+	public List<Opiniao> listaOpiniao() {
+		
+		List<Opiniao> lista = opiniaorepository.findAll();
 		return lista;
 	}
 	

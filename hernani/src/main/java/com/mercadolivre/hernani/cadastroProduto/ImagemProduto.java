@@ -38,6 +38,19 @@ public class ImagemProduto {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	public Long getId() {
+		return id;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
 	@Override
 	public String toString() {
 		return "ImagemProduto [id=" + id + ", link=" + link + "]";
