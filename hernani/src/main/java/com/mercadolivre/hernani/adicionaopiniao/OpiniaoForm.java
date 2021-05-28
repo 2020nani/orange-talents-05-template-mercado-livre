@@ -36,21 +36,16 @@ public class OpiniaoForm {
 		this.nota = nota;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "OpiniaoForm [titulo=" + titulo + ", descricao=" + descricao + ", nota=" + nota + "]";
-	}
-
-
-
 	public Opiniao converte(@NotNull @Valid Produto produto,@NotNull @Valid Usuario usuario) {
 		Assert.state(usuario!=null,"usuario tem que estar logado");
 		Assert.state(produto!=null,"E obrigatorio um produto estar associado com a opiniao");
 		return new Opiniao(titulo, descricao, nota, usuario, produto);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "OpiniaoForm [titulo=" + titulo + ", descricao=" + descricao + ", nota=" + nota + "]";
+	}
 	
 
 }
