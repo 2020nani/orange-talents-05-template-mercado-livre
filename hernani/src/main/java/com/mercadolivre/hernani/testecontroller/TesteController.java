@@ -11,6 +11,7 @@ import com.mercadolivre.hernani.adicionaopiniao.AdicionaOpiniaoRepository;
 import com.mercadolivre.hernani.adicionaopiniao.Opiniao;
 import com.mercadolivre.hernani.adicionapergunta.Pergunta;
 import com.mercadolivre.hernani.adicionapergunta.PerguntaRepository;
+import com.mercadolivre.hernani.cadastroProduto.CaracteristicaProduto;
 import com.mercadolivre.hernani.cadastroProduto.ImagemProduto;
 import com.mercadolivre.hernani.cadastroProduto.ImagemRepository;
 import com.mercadolivre.hernani.cadastroProduto.Produto;
@@ -40,6 +41,9 @@ public class TesteController {
 	@Autowired
 	private UsuarioRepository usuariorepository;
 
+	@Autowired
+	private CaracteristicaRepository caracteristicarepository;
+
 	@GetMapping(value = "/usuarios")
 	public List<Usuario> listaUsuario() {
 		
@@ -58,6 +62,13 @@ public class TesteController {
 	public List<Produto> listaProduto() {
 		
 		List<Produto> lista = produtorepository.findAll();
+		return lista;
+	}
+	
+	@GetMapping(value = "/caracteristicas")
+	public List<CaracteristicaProduto> listaCaracteristica() {
+		
+		List<CaracteristicaProduto> lista = caracteristicarepository.findAll();
 		return lista;
 	}
 	

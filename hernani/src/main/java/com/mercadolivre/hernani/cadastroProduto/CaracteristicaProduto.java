@@ -37,6 +37,23 @@ public class CaracteristicaProduto {
 		this.produto = produto;
 	}
 
+	
+	public Long getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
 	@Override
 	public String toString() {
 		return "CaracteristicaProduto [nome=" + nome + ", descricao=" + descricao + "]";

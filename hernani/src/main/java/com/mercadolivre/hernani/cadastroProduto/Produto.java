@@ -29,10 +29,13 @@ import org.springframework.util.Assert;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
-
+import com.mercadolivre.hernani.adicionaopiniao.Opiniao;
+import com.mercadolivre.hernani.adicionapergunta.Pergunta;
 import com.mercadolivre.hernani.cadastrocategoria.Categoria;
 import com.mercadolivre.hernani.cadastrousuario.Usuario;
 import com.mercadolivre.hernani.config.security.UserDetailsSecurity;
+import com.mercadolivre.hernani.detalheproduto.DetalheCaracteristicaProduto;
+import com.mercadolivre.hernani.detalheproduto.Opinioes;
 
 @Entity
 public class Produto {
@@ -70,6 +73,12 @@ public class Produto {
 	
 	@OneToMany(mappedBy = "produto",cascade = CascadeType.MERGE)
 	private Set<ImagemProduto> imagens = new HashSet<>();
+	
+	@OneToMany(mappedBy = "produto",cascade = CascadeType.MERGE)
+	private Set<Pergunta> perguntas = new HashSet<>();
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<Opiniao> opinioes = new HashSet<>();
 	
 	@Future
 	@CreationTimestamp
@@ -164,6 +173,9 @@ public class Produto {
 	public Usuario getDono() {
 		return dono;
 	}
+	public Opinioes getOpinioes() {
+		return new Opinioes(this.opinioes);
+	}
 
 	@Override
 	public String toString() {
@@ -171,6 +183,22 @@ public class Produto {
 				+ ", descricao=" + descricao + ", categoria=" + categoria + ", dono=" + dono + ", caracteristicas="
 				+ caracteristicas + ", imagens=" + imagens + ", momentoCriacao=" + momentoCriacao + "]";
 	}
+
+	public Set<DetalheCaracteristicaProduto> buscaCaracteristicas(Function<CaracteristicaProduto, DetalheCaracteristicaProduto > funcao) {
+		
+		return this.caracteristicas.stream().map(funcao).collect(Collectors.toSet());
+	}
+
+	public Set<String> buscaImagem(Function<ImagemProduto, String> funcao) {
+		// TODO Auto-generated method stub
+		return this.imagens.stream().map(funcao).collect(Collectors.toSet());
+	}
+
+	public Set<String> buscaPergunta(Function<Pergunta, String> funcao) {
+		// TODO Auto-generated method stub
+		return this.perguntas.stream().map(funcao).collect(Collectors.toSet());
+	}
+
 
 	
 	
