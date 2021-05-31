@@ -80,7 +80,6 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<Opiniao> opinioes = new HashSet<>();
 	
-	@Future
 	@CreationTimestamp
 	private LocalDateTime momentoCriacao;
 
@@ -199,7 +198,14 @@ public class Produto {
 		return this.perguntas.stream().map(funcao).collect(Collectors.toSet());
 	}
 
+	public boolean atualizaEstoque(int quantidadecompra) {
+		if(quantidadecompra <= quantidade && quantidadecompra > 0) {
+			quantidade-=quantidadecompra;
+			return true;
+		}
+		return false;
+		
+	}
 
-	
 	
 }

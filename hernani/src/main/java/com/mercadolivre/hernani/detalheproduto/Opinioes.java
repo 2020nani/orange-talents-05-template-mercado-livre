@@ -23,8 +23,8 @@ public class Opinioes {
 
 	public double media() {
 		Set<Integer> notas = buscaOpiniao(opiniao -> opiniao.getNota());
-		OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();
-		return possivelMedia.orElse(0.0);
+		OptionalDouble media = notas.stream().mapToInt(nota -> nota).average();
+		return media.orElse(0.0);
 	}	
 	
 	public int total() {
@@ -33,4 +33,9 @@ public class Opinioes {
 	
 	
 
+	public Set<Opiniao> getOpinioes() {
+		return opinioes;
+	}
+
+	
 }

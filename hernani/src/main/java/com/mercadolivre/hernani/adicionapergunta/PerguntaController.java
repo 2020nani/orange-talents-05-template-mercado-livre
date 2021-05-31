@@ -35,7 +35,7 @@ public class PerguntaController {
 
 	@PostMapping(value="/produtos/{id}/pergunta")
 	@Transactional
-	public String criaOpiniao(@PathVariable("id") Long id, @RequestBody @Valid PerguntaForm perguntaform, @AuthenticationPrincipal UserDetailsSecurity user) {
+	public String criaPergunta(@PathVariable("id") Long id, @RequestBody @Valid PerguntaForm perguntaform, @AuthenticationPrincipal UserDetailsSecurity user) {
 		
 		Produto produto = produtorepository.findById(id).get();
 		Usuario usuario = usuariorepository.findById(user.getId()).get();
