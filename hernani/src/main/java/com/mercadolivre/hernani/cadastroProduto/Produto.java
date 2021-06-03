@@ -199,6 +199,8 @@ public class Produto {
 	}
 
 	public boolean atualizaEstoque(int quantidadecompra) {
+		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);
+		
 		if(quantidadecompra <= quantidade && quantidadecompra > 0) {
 			quantidade-=quantidadecompra;
 			return true;
